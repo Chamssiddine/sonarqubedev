@@ -50,7 +50,8 @@ def create_precommit_hook(project_key, token, repo_path):
     # Create pre-commit hook script to run SonarScanner in Docker before each commit.
     sonar_scanner_docker_command = [
         'docker', 'run', '--rm',
-        '-e', f'SONAR_HOST_URL=http://localhost:9000',
+        '--network', 'sonarqube',  
+        '-e', f'SONAR_HOST_URL=http://sonarqube:9000',
         '-e', f'SONAR_SCANNER_OPTS=-Dsonar.projectKey={project_key}',
         '-e', f'SONAR_LOGIN={token}',
         '-v', f'{repo_path}:/usr/src',
