@@ -60,7 +60,7 @@ def create_precommit_hook(project_key, token, repo_path):
 
     precommit_script = f"""
 {shellused}
-    
+
 {sonar_command_string}
 """
 
