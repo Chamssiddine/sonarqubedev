@@ -9,37 +9,38 @@ def check_docker_installation():
     try:
         subprocess.run(['docker', '--version'], check=True)
     except subprocess.CalledProcessError:
-        print("Docker is not installed. Please follow the official Docker installation documentation.")
-        print("https://docs.docker.com/engine/install/")
+        print("❌ Docker is not installed. Please follow the official Docker installation documentation.")
+        print("🔗 https://docs.docker.com/engine/install/")
 
 def download_and_run_docker_compose():
     try:
         subprocess.run(['docker-compose', '--version'], check=True)
     except subprocess.CalledProcessError:
-        print("Docker Compose is not installed. Please install Docker Compose.")
-        print("https://docs.docker.com/compose/install/")
+        print("❌ Docker Compose is not installed. Please install Docker Compose.")
+        print("🔗 https://docs.docker.com/compose/install/")
 
     subprocess.run(['docker-compose', 'up', '-d'])
+    print("🚀 Docker Compose started successfully.")
 
 def wait_for_sonarqube():
     url = 'http://localhost:9000'
-    print(f"Waiting for SonarQube to be accessible at {url}")
+    print(f"⏳ Waiting for SonarQube to be accessible at {url}")
     
     while True:
         try:
             response = requests.get(url)
             response.raise_for_status()
-            print("SonarQube is accessible.")
+            print("✅ SonarQube is accessible.")
             break
         except requests.exceptions.RequestException:
-            print("SonarQube is not yet accessible. Retrying in 5 seconds...")
+            print("❌ SonarQube is not yet accessible. Retrying in 5 seconds...")
             time.sleep(5)
 
 def access_sonarqube():
-    print("Please wait for SonarQube to start, then access it through http://localhost:9000")
+    print("🔗 Please wait for SonarQube to start, then access it through http://localhost:9000")
     input("Press Enter when you are ready to continue...")
-    print("Username: admin")
-    print("Password: admin")
+    print("👤 Username: admin")
+    print("🔑 Password: admin")
     webbrowser.open('http://localhost:9000')
 
 def create_precommit_hook(project_key, token, repo_path):
@@ -72,7 +73,7 @@ subprocess.run({sonar_scanner_docker_command}, check=True)
     if platform.system() != 'Windows':
         os.chmod(hook_path, 0o755)
 
-    print("Pre-commit hook created successfully.")
+    print("✨ Pre-commit hook created successfully.")
 
 if __name__ == "__main__":
     check_docker_installation()
@@ -80,10 +81,9 @@ if __name__ == "__main__":
     wait_for_sonarqube()
     access_sonarqube()
     
-    print("Follow the documentation at github.com/chmassiddine/sonarqubedev to create a SonarQube project and come back to put in your project TOKEN and ID.")
-    project_token = input("Enter the project token: ")
-    project_id = input("Enter the project ID: ")
-    repo_path = input("Enter your repository path: ")
-
+    print("📚 Follow the documentation at github.com/chmassiddine/sonarqubedev to create a SonarQube project and come back to put in your project TOKEN and ID.")
+    project_token = input("🔑 Enter the project token: ")
+    project_id = input("🆔 Enter the project ID: ")
+    repo_path = input("📁 Enter your repository path: ")
 
     create_precommit_hook(project_id, project_token, repo_path)
