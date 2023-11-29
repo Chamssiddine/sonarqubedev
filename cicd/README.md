@@ -1,6 +1,15 @@
 # Deploy Proxy Application
 
-This GitHub Actions workflow automates the deployment of a proxy application to a server. The workflow consists of two jobs: `build` and `deploy`. The `build` job is triggered on each push to the main branch and performs the following tasks:
+This GitHub Actions workflow automates the build, test and deployment to a server. The workflow consists of two jobs: `build` and `deploy`. 
+
+
+## **IMPORTANT** 
+
+Adjust the `your-image-name:tag` & `Container Name` and port mappings (`-p`) based on the application.
+This pipeline assumes that the Docker image contains the necessary configurations for your proxy application, and it exposes the application on port 8080. Adjust the Docker-related commands and configurations based on your specific requirements.
+
+
+The pipeline is triggered on each push to the main branch and performs the following tasks:
 
 ## Build Job
 
@@ -53,6 +62,3 @@ Replace the placeholder values in the Docker commands with your actual container
 - **your-dockerhub-username:** Your Docker Hub username.
 - **your-image-name:** The name of the Docker image.
 
-### Note
-
-This pipeline assumes that the Docker image contains the necessary configurations for your proxy application, and it exposes the application on port 8080. Adjust the Docker-related commands and configurations based on your specific requirements.
